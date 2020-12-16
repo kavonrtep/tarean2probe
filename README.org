@@ -1,0 +1,28 @@
+* tarean2probe - toot for design of pools of oligo probes for FISH. 
+
+This tool utilize output from TAREAN and design set of oligos based on the oriented sequence reads and frequency of kmers
+
+** requirements
+R, Biostrings, igraph
+
+
+** example run:
+
+extract maxumum 50 oligo probes from reads in tarean_dir2 based on kmer length 15, default T_m is 47C:
+
+#+begin_src bash
+/tarean2oligo_probe.R -d test_data/tarean_dir2 -k 15 -N 50 -o example_output/example2
+#+end_src
+
+output is a table =example_output/example2_oligos.csv= :
+
+
+| read_id    | read_sequence                | oligo_sequence      | oligo_tm | oligo_length | read_kmer_uniqueness |           coverage | cumulative_normalized_coverage |            score |
+|------------+------------------------------+---------------------+----------+--------------+----------------------+--------------------+--------------------------------+------------------|
+| 444830r 1  | GATCCAACCAAACACAGACAACCT.... | GATCCAACCAAACACA... |     46.1 |          101 |                  100 |  0.109810627829719 |              0.109810627829719 | 77.5643564356436 |
+| 345066r 1  | AAAAAAAGTGCATTAGAAAAAAAA...  | AAAAAAAGTGCATTAG... |    43.66 |          101 |                  100 |  0.109712507534237 |              0.219523135363956 | 77.4950495049505 |
+| 1952296f 1 | TATTAATATCTTGATGTTAGAATA...  | TATTAATATCTTGATG... |    43.25 |          101 |                  100 |  0.102003055746345 |              0.321526191110301 |  72.049504950495 |
+| 1654136f 1 | TTGTACTCCACTTTCTCTTTTAAA...  | TTGTACTCCACTTTCT... |    42.44 |          101 |                  100 | 0.0910836685776762 |              0.412609859687977 | 64.3366336633663 |
+
+(sequences are truncated)
+if =oligo_tm=  is lower than requested -whole seqeunce was used but the tm is due to loew GC content still low 
